@@ -32,7 +32,7 @@ extension MyTextExtension on MyText {
   String get text {
     switch (this) {
       case MyText.title:
-        return 'Register Machine Simulator';
+        return 'Lambda Calculus Simulator';
       case MyText.introTab:
         return 'Introduction';
       case MyText.typeTab:

@@ -1,11 +1,11 @@
 {
-    "name": "Register Machine Simulator",
+    "name": "Lambda Calculus Simulator",
     "short_name": "RMS",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Register Machine Simulator.",
+    "description": "Lambda Calculus Simulator.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
