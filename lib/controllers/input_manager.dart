@@ -55,7 +55,7 @@ class InputManager<T> extends ChangeNotifier {
     try {
       textController.text = await FileIO.uploadToString(maxLength: maxLength);
     } catch (e) {
-      if (context != null) {
+      if (context != null && context.mounted) {
         showDialog(
           context: context,
           builder: (context) {
