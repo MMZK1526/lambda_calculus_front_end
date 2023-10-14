@@ -109,7 +109,7 @@ class _SimulationTabState extends State<SimulationTab>
         children: [
           MyMarkdownBody(
             callbackBinder: widget.markdownCallbackBinder,
-            data: MyMarkdownTexts.simulateMarkdown,
+            data: "",
             fitContent: false,
           ),
           Padding(
