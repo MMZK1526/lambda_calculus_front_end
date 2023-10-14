@@ -3,6 +3,7 @@ import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lambda_calculus/lambda_calculus.dart';
 import 'package:lambda_calculus_front_end/components/button.dart';
 import 'package:lambda_calculus_front_end/components/my_markdown_body.dart';
 import 'package:lambda_calculus_front_end/constants/my_markdown_texts.dart';
@@ -61,13 +62,11 @@ class _TypeTabState extends State<TypeTab>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final lambda = _lambdaInputManager.data;
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: ListView(
         children: [
-          // MARK: Decode
+          // MARK: Lambda input
           MyMarkdownBody(
             callbackBinder: widget.markdownCallbackBinder,
             data: MyMarkdownTexts.simulateUniversalMarkdown,
@@ -82,21 +81,26 @@ class _TypeTabState extends State<TypeTab>
                     controller: _lambdaInputManager.textController,
                     decoration: InputDecoration(
                       hintText: _lambdaInputManager.currentSearchedInput != null
-                          ? 'Click "${MyText.convert.text}" to restore the previous input'
+                          ? 'Click "${MyText.typeInfer.text}" to restore the previous input'
                           : null,
                     ),
                     maxLines: null,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
                 const SizedBox(width: 12.0),
                 Button(
                   enabled: _lambdaInputManager.hasInput,
                   colour: Theme.of(context).colorScheme.primary,
-                  onPressed: () => null,
+                  onPressed: () {
+                    _lambdaInputManager.onQuery((input) {
+                      final lambda = input.toLambda();
+                      print(lambda?.findType().toString());
+                      return lambda?.findType().toString();
+                    });
+                  },
                   child: Row(
                     children: [
-                      Text(MyText.convert.text),
+                      Text(MyText.typeInfer.text),
                       const Padding(
                         padding: EdgeInsets.only(left: 8.0),
                         child: Icon(Icons.arrow_circle_right_outlined),
