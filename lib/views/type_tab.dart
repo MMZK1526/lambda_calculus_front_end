@@ -16,19 +16,19 @@ import 'package:lambda_calculus_front_end/models/decode_data.dart';
 import 'package:lambda_calculus_front_end/models/encode_data.dart';
 import 'package:lambda_calculus_front_end/utilities/file_io.dart';
 
-class ConversionTab extends StatefulWidget {
-  const ConversionTab({super.key, this.markdownCallbackBinder});
+class TypeTab extends StatefulWidget {
+  const TypeTab({super.key, this.markdownCallbackBinder});
 
   /// The callback binder for the [MyMarkdownBody] widgets. It determines the
   /// behaviour for custom links in the Markdown text.
   final CallbackBinder<String>? markdownCallbackBinder;
 
   @override
-  State<ConversionTab> createState() => _ConversionTabState();
+  State<TypeTab> createState() => _TypeTabState();
 }
 
-class _ConversionTabState extends State<ConversionTab>
-    with AutomaticKeepAliveClientMixin<ConversionTab> {
+class _TypeTabState extends State<TypeTab>
+    with AutomaticKeepAliveClientMixin<TypeTab> {
   final _decodeInputManager = InputManager<DecodeData>();
   final _encodeRMInputManager = InputManager<EncodeData>();
   final _encodeListOrPairInputManager = InputManager<EncodeData>();
