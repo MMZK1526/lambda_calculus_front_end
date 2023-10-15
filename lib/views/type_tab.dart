@@ -62,6 +62,8 @@ class _TypeTabState extends State<TypeTab>
   Widget build(BuildContext context) {
     super.build(context);
 
+    final lambdaTypeString = _lambdaInputManager.data;
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: ListView(
@@ -94,7 +96,6 @@ class _TypeTabState extends State<TypeTab>
                   onPressed: () {
                     _lambdaInputManager.onQuery((input) {
                       final lambda = input.toLambda();
-                      print(lambda?.findType().toString());
                       return lambda?.findType().toString();
                     });
                   },
@@ -109,7 +110,6 @@ class _TypeTabState extends State<TypeTab>
                   ),
                 ),
                 const SizedBox(width: 12.0),
-                // Button(
                 //   enabled: decodehasValidData,
                 //   colour: Theme.of(context).colorScheme.secondary,
                 //   onPressed: () => FileIO.saveAsZip(
@@ -153,6 +153,16 @@ class _TypeTabState extends State<TypeTab>
               ],
             ),
           ),
+          if (lambdaTypeString != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 12.0),
+              child: MyMarkdownBody(
+                callbackBinder: widget.markdownCallbackBinder,
+                selectable: true,
+                data: lambdaTypeString,
+                fitContent: false,
+              ),
+            ),
         ],
       ),
     );
