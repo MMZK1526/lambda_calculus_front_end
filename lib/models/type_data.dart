@@ -7,6 +7,18 @@ class TypeData {
   final List<String> errors;
   final String? type;
 
+  static const parseError =
+      TypeData(errors: ['The lambda term could not be parsed']);
+
+  static const typeError = TypeData(errors: [
+    'The lambda term could not be typed in the Hindley-Milner type system',
+  ]);
+
+  static TypeData fromString(String type) => TypeData(
+        errors: [],
+        type: type,
+      );
+
   static TypeData fromJSON(dynamic json) {
     try {
       if (json['hasError'] == true) {

@@ -11,6 +11,7 @@ import 'package:lambda_calculus_front_end/constants/my_text.dart';
 import 'package:lambda_calculus_front_end/constants/rm_examples.dart';
 import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
 import 'package:lambda_calculus_front_end/controllers/input_manager.dart';
+import 'package:lambda_calculus_front_end/models/type_data.dart';
 
 class TypeTab extends StatefulWidget {
   const TypeTab({super.key, this.markdownCallbackBinder});
@@ -25,7 +26,7 @@ class TypeTab extends StatefulWidget {
 
 class _TypeTabState extends State<TypeTab>
     with AutomaticKeepAliveClientMixin<TypeTab> {
-  final _lambdaInputManager = InputManager<String>();
+  final _lambdaInputManager = InputManager<TypeData>();
 
   /// The index of the currently selected Lambda example.
   int? _currentExampleIndex;
@@ -62,7 +63,7 @@ class _TypeTabState extends State<TypeTab>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final lambdaTypeString = _lambdaInputManager.data;
+    final lambdaTypeResult = _lambdaInputManager.data;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -96,7 +97,15 @@ class _TypeTabState extends State<TypeTab>
                   onPressed: () {
                     _lambdaInputManager.onQuery((input) {
                       final lambda = input.toLambda();
-                      return lambda?.findType().toString();
+                      if (lambda == null) {
+                        return TypeData.parseError;
+                      }
+                      final type = lambda.findType();
+                      if (type == null) {
+                        return TypeData.typeError;
+                      }
+
+                      return TypeData.fromString(type.toString());
                     });
                   },
                   child: Row(
@@ -153,13 +162,13 @@ class _TypeTabState extends State<TypeTab>
               ],
             ),
           ),
-          if (lambdaTypeString != null)
+          if (lambdaTypeResult != null)
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
               child: MyMarkdownBody(
                 callbackBinder: widget.markdownCallbackBinder,
                 selectable: true,
-                data: lambdaTypeString,
+                data: lambdaTypeResult.toMarkdown(),
                 fitContent: false,
               ),
             ),
