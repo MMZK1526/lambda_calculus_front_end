@@ -10,9 +10,8 @@ class TypeData {
   static const parseError =
       TypeData(errors: ['The lambda term could not be parsed']);
 
-  static const typeError = TypeData(errors: [
-    'The lambda term could not be typed in the Hindley-Milner type system',
-  ]);
+  static const typeError =
+      TypeData(errors: ['The lambda term could not be typed']);
 
   static TypeData fromString(String type) => TypeData(
         errors: [],

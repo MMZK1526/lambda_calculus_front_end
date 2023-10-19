@@ -1,8 +1,4 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lambda_calculus/lambda_calculus.dart';
 import 'package:lambda_calculus_front_end/components/button.dart';
 import 'package:lambda_calculus_front_end/components/my_markdown_body.dart';
@@ -72,7 +68,7 @@ class _TypeTabState extends State<TypeTab>
           // MARK: Lambda input
           MyMarkdownBody(
             callbackBinder: widget.markdownCallbackBinder,
-            data: MyMarkdownTexts.simulateUniversalMarkdown,
+            data: MyMarkdownTexts.typeInferenceMarkdown,
             fitContent: false,
           ),
           Padding(
@@ -119,46 +115,6 @@ class _TypeTabState extends State<TypeTab>
                   ),
                 ),
                 const SizedBox(width: 12.0),
-                //   enabled: decodehasValidData,
-                //   colour: Theme.of(context).colorScheme.secondary,
-                //   onPressed: () => FileIO.saveAsZip(
-                //     MyText.decodeZip.text,
-                //     [
-                //       fn.Tuple2(
-                //         MyText.responseJSON.text,
-                //         '${decodeData?.json}',
-                //       ),
-                //       fn.Tuple2(
-                //         MyText.responseMarkdown.text,
-                //         '${decodeData?.toMarkdown()}',
-                //       ),
-                //     ],
-                //   ),
-                //   child: Row(
-                //     children: [
-                //       Text(MyText.download.text),
-                //       const Padding(
-                //         padding: EdgeInsets.only(left: 8.0),
-                //         child: Icon(Icons.download_outlined),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // const SizedBox(width: 12.0),
-                // Button(
-                //   enabled: decodehasValidData || _decodeInputManager.hasInput,
-                //   colour: Theme.of(context).colorScheme.tertiary,
-                //   onPressed: () => _decodeInputManager.onReset(),
-                //   child: Row(
-                //     children: [
-                //       Text(MyText.reset.text),
-                //       const Padding(
-                //         padding: EdgeInsets.only(left: 8.0),
-                //         child: Icon(Icons.restore_outlined),
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),
