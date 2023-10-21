@@ -8,6 +8,35 @@ Originally created as a project for the Models of Computation and Type Systems f
 
 This Web APP uses the [lambda_calculus dart package](https://pub.dev/packages/lambda_calculus) to do the heavy lifting.
 
+## Features
+
+TODO
+
+## Syntax
+
+Here is the semi-formal grammar of the supported syntax.
+
+```
+<lambda> ::= <variable> | <abstraction> | <application>
+<variable> ::= <identifier> | <de-bruijn-index>
+<abstraction> ::= <lambda-symbol> [<variable>] <dot-symbol> <lambda>
+<application> ::= <lambda> <lambda>
+<lambda-symbol> ::= (λ|/|\\) -- lambda, slash, or backslash
+<dot-symbol> ::= (\.) | (->) -- A single dot or an arrow
+<identifier> ::= ([a-zA-Z][a-zA-Z0-9]*) -- Alpha-numeric strings that do not start with a digit
+<de-bruijn-index> ::= ([0-9]+) -- De Bruijn index
+```
+
+In addition to the above, spaces are ignored and parentheses are used to determine the precedence of operations. For example, `λx.x x` is parsed as `λx.(x x)`, not `(λx.x) x`.
+
+As an example, let us start from the "succ" term `λa. λb. λc. b (a b c)`. The term itself can be successfully parsed, but we can also do the following modifications without affecting the parse result:
+
+- Remove spaces: `λa.λb.λc.b(a b c)` Note that the space in `(a b c)` cannot be removed since otherwise it will treat `abc` as a single variable.
+- Use other symbols for "λ": `/a.\\b./c.b(a b c)`, we support slash and backslash as well.
+- Changing the doc to an arrow: `λa b c -> b (a b c)`.
+- Use De Bruijn indices for variables: `λa. λb. λc. 2 (3 2 1)`. Here `1`, `2`, and `3` are the De Bruijn indices for `c`, `b`, and `a`.
+- If we are only using the De Bruijn indices, we can omit the variable declaration: `λλλ2 (3 2 1)`.
+
 """;
 
   static final typeInferenceMarkdown = """
