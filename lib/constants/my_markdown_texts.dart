@@ -1,6 +1,7 @@
 import 'package:lambda_calculus_front_end/constants/my_text.dart';
 
 class MyMarkdownTexts {
+  // ignore: unnecessary_string_escapes
   static const introMarkdown = """
 # Lambda Calculus Simulator
 
