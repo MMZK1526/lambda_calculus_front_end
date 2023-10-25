@@ -2,7 +2,7 @@ import 'package:lambda_calculus_front_end/constants/my_text.dart';
 
 class MyMarkdownTexts {
   // ignore: unnecessary_string_escapes
-  static const introMarkdown = """
+  static final introMarkdown = """
 # Lambda Calculus Simulator
 
 Originally created as a project for the Models of Computation and Type Systems for Programming Language modules at Imperial College, this simulator is a web application that allows users to simulate the execution of a Lambda Calculus expression as well as doing basic type inference.
@@ -11,7 +11,12 @@ This Web APP uses the [lambda_calculus dart package](https://pub.dev/packages/la
 
 ## Features
 
-TODO
+TODO: The [${MyText.simTab.text}](!!simulation) tab supports evaluating a lambda term by the given number of steps or to the normal form. It supports three evaluation strategies:
+1. Full reduction. Call by name and attempts to reduce everything.
+2. Call by name. Call by name, does not reduce within abstraction. Usually corresponds to "lazy evaluation".
+3. Call by value. Call by value, does not reduce within abstraction. Usually corresponds to "eager evaluation".
+
+The [${MyText.typeTab.text}](!!type-inference) tab supports type inference for a lambda term. It supports the vanilla Church type system without recursion.
 
 ## Syntax
 
