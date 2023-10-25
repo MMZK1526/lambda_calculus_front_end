@@ -44,6 +44,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     _markdownCallbackBinder.withCurrentGroup(MyText.title.text, () {
       // Bind the markdownCallbackBinder to the tabs.
+      _markdownCallbackBinder['simulation'] = () {
+        _tabController.animateTo(1);
+      };
+      _markdownCallbackBinder['type-inference'] = () {
+        _tabController.animateTo(2);
+      };
     });
 
     super.initState();
