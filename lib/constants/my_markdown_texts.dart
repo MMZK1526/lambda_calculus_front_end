@@ -50,6 +50,12 @@ As an example, let us start from the "succ" term `λa. λb. λc. b (a b c)`. The
 
 This type inference engine uses a basic type system that does not support recursion.
 
+The type system is very simple:
+
+```
+<type> ::= <type> -> <type> | <type-variable>
+```
+
 Please type in a Lambda Calculus expression in the input box below and press the "${MyText.typeInfer.text}" button to see the type of the expression.
 
 """;
