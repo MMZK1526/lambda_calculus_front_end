@@ -135,10 +135,10 @@ packages:
     dependency: "direct main"
     description:
       name: lambda_calculus
-      sha256: "63668b7b10ff1e3ebdaddf138a48db9b3847c26ba193b097b04c38c17d1934ee"
+      sha256: "7231e1cfa9ad56d3ccd6084da544150297a41bcc56845dc7267ae8b7721d45b0"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.2"
+    version: "1.3.3"
   lints:
     dependency: transitive
     description:
