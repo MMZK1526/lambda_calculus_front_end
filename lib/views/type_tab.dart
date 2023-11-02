@@ -8,6 +8,7 @@ import 'package:lambda_calculus_front_end/constants/rm_examples.dart';
 import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
 import 'package:lambda_calculus_front_end/controllers/input_manager.dart';
 import 'package:lambda_calculus_front_end/models/type_data.dart';
+import 'package:lambda_calculus_front_end/utilities/file_io.dart';
 
 class TypeTab extends StatefulWidget {
   const TypeTab({super.key, this.markdownCallbackBinder});
@@ -115,6 +116,23 @@ class _TypeTabState extends State<TypeTab>
                   ),
                 ),
                 const SizedBox(width: 12.0),
+                Button(
+                  enabled: lambdaTypeResult?.errors.isEmpty == true,
+                  colour: Theme.of(context).colorScheme.secondary,
+                  onPressed: () => FileIO.saveFromString(
+                    'type.md',
+                    '${lambdaTypeResult?.toMarkdown()}',
+                  ),
+                  child: Row(
+                    children: [
+                      Text(MyText.download.text),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Icon(Icons.download_outlined),
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(width: 12.0),
                 Button(
                   enabled: lambdaTypeResult?.errors.isEmpty == true ||
