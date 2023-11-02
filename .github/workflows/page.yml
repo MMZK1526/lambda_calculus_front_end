@@ -24,7 +24,7 @@ jobs:
         run: flutter pub get
 
       - name: Build
-        run: flutter build web --base-href "/rm_front_end/"
+        run: flutter build web --base-href "/lambda_calculus_front_end/"
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
