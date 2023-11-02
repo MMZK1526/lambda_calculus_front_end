@@ -115,6 +115,22 @@ class _TypeTabState extends State<TypeTab>
                   ),
                 ),
                 const SizedBox(width: 12.0),
+                const SizedBox(width: 12.0),
+                Button(
+                  enabled: lambdaTypeResult?.errors.isEmpty == true ||
+                      _lambdaInputManager.hasInput,
+                  colour: Theme.of(context).colorScheme.tertiary,
+                  onPressed: () => _lambdaInputManager.onReset(),
+                  child: Row(
+                    children: [
+                      Text(MyText.reset.text),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Icon(Icons.restore_outlined),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
