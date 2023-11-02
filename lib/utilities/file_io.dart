@@ -4,9 +4,6 @@ import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:typed_data';
 
-import 'package:archive/archive.dart';
-import 'package:dartz/dartz.dart' as fn;
-
 /// File upload/download utilities.
 class FileIO {
   /// Upload a file from the user's computer, returning the content as a
@@ -58,37 +55,6 @@ class FileIO {
     });
 
     return completer.future;
-  }
-
-  /// Save several contents as a zip file with the given names.
-  static void saveAsZip(
-    String zipName,
-    List<fn.Tuple2<String, String>> contents, {
-    int compressLevel = Deflate.BEST_SPEED,
-  }) {
-    final encoder = ZipEncoder();
-    final archive = Archive();
-
-    // Add each content to the archive.
-    for (final content in contents) {
-      final encoded = utf8.encode(content.value2);
-      ArchiveFile archiveFiles = ArchiveFile.stream(
-        content.value1,
-        encoded.length,
-        InputStream(encoded),
-      );
-      archive.addFile(archiveFiles);
-    }
-
-    final outputStream = OutputStream();
-    final bytes = encoder.encode(
-      archive,
-      level: compressLevel,
-      output: outputStream,
-    );
-
-    // Save the zip file.
-    saveFromBytes(zipName, Uint8List.fromList(bytes!));
   }
 
   /// Save a [Uint8List] as a file with the given name.

@@ -1,5 +1,5 @@
-import 'package:dartz/dartz.dart' as fn;
 import 'package:flutter/material.dart';
+import 'package:lambda_calculus_front_end/utilities/prelude.dart';
 
 /// Dynamically binds a [VoidCallback] to a key, and allows for the
 /// [VoidCallback] to be retrieved by the key.
@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 /// Note that this class is not thread-safe.
 class CallbackBinder<T> {
   /// The map of keys to callbacks.
-  final Map<fn.Tuple2<String?, T>, VoidCallback> _listeners = {};
+  final Map<Pair<String?, T>, VoidCallback> _listeners = {};
 
   /// The map of key groupings.
   final Map<String?, List<T>> _groups = {};
@@ -32,7 +32,7 @@ class CallbackBinder<T> {
   void invokeAt(T key) {
     final groups = _keyGroups[key] ?? [];
     for (final group in groups) {
-      final callback = _listeners[fn.Tuple2(group, key)];
+      final callback = _listeners[Pair(group, key)];
       callback?.call();
     }
   }
@@ -43,7 +43,7 @@ class CallbackBinder<T> {
     final groups = _keyGroups[key] ?? [];
     final callbacks = <String?, VoidCallback>{};
     for (final group in groups) {
-      callbacks[group] = _listeners[fn.Tuple2(group, key)]!;
+      callbacks[group] = _listeners[Pair(group, key)]!;
     }
     return callbacks;
   }
@@ -55,7 +55,7 @@ class CallbackBinder<T> {
     _keyGroups[key] = _keyGroups[key] ?? [];
     _keyGroups[key]?.add(currentGroup);
 
-    _listeners[fn.Tuple2(currentGroup, key)] = callback;
+    _listeners[Pair(currentGroup, key)] = callback;
   }
 
   /// Conduct an action with the given [currentGroup].
@@ -77,7 +77,7 @@ class CallbackBinder<T> {
       currentGroup = null;
     } else {
       _groups[group]?.forEach((key) {
-        _listeners.remove(fn.Tuple2(group, key));
+        _listeners.remove(Pair(group, key));
         _keyGroups[key]?.remove(group);
       });
       _groups.remove(group);

@@ -1,7 +1,6 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
-import 'package:dartz/dartz.dart' as fn;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -41,38 +40,24 @@ class _SimulationTabState extends State<SimulationTab>
   @override
   bool get wantKeepAlive => true;
 
-  /// Downloads the JSON and Markdown responses for the simulation result.
-  void onDownload(SimulateData? data) async {
-    FileIO.saveAsZip(
-      MyText.simlateZip.text,
-      [
-        fn.Tuple2(MyText.responseJSON.text, '${data?.json}'),
-        fn.Tuple2(
-          MyText.responseMarkdown.text,
-          '${data?.toMarkdown(showAllSteps: true)}',
-        ),
-      ],
-    );
-  }
-
   @override
   void initState() {
-    widget.markdownCallbackBinder?.withCurrentGroup(MyText.simTab.text, () {
-      // Bind the download action for the the markdownCallbackBinder.
-      widget.markdownCallbackBinder?[MyText.download.text] = () {
-        onDownload(_simulateInputManager.data);
-      };
-    });
+    // widget.markdownCallbackBinder?.withCurrentGroup(MyText.simTab.text, () {
+    //   // Bind the download action for the the markdownCallbackBinder.
+    //   widget.markdownCallbackBinder?[MyText.download.text] = () {
+    //     onDownload(_simulateInputManager.data);
+    //   };
+    // });
 
-    _simulateInputManager.initState();
-    _simulateInputManager.addListener(() => setState(() {}));
-    _simulateInputManager.textController.addListener(() {
-      final isExample =
-          allExampleRMs.contains(_simulateInputManager.textController.text);
-      if (_currentExampleIndex != null && !isExample) {
-        setState(() => _currentExampleIndex = null);
-      }
-    });
+    // _simulateInputManager.initState();
+    // _simulateInputManager.addListener(() => setState(() {}));
+    // _simulateInputManager.textController.addListener(() {
+    //   final isExample =
+    //       allExampleRMs.contains(_simulateInputManager.textController.text);
+    //   if (_currentExampleIndex != null && !isExample) {
+    //     setState(() => _currentExampleIndex = null);
+    //   }
+    // });
 
     super.initState();
   }
