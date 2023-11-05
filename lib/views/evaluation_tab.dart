@@ -9,19 +9,19 @@ import 'package:lambda_calculus_front_end/constants/my_themes.dart';
 import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
 import 'package:lambda_calculus_front_end/controllers/input_manager.dart';
 
-class SimulationTab extends StatefulWidget {
-  const SimulationTab({super.key, this.markdownCallbackBinder});
+class EvaluationTab extends StatefulWidget {
+  const EvaluationTab({super.key, this.markdownCallbackBinder});
 
   /// The callback binder for the [MyMarkdownBody] widgets. It determines the
   /// behaviour for custom links in the Markdown text.
   final CallbackBinder<String>? markdownCallbackBinder;
 
   @override
-  State<SimulationTab> createState() => _SimulationTabState();
+  State<EvaluationTab> createState() => _EvaluationTabState();
 }
 
-class _SimulationTabState extends State<SimulationTab>
-    with AutomaticKeepAliveClientMixin<SimulationTab> {
+class _EvaluationTabState extends State<EvaluationTab>
+    with AutomaticKeepAliveClientMixin<EvaluationTab> {
   final _lambdaInputManager = InputManager<String>();
 
   @override
@@ -45,7 +45,7 @@ class _SimulationTabState extends State<SimulationTab>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final simulateData = _lambdaInputManager.data;
+    final evaluateData = _lambdaInputManager.data;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -61,7 +61,7 @@ class _SimulationTabState extends State<SimulationTab>
                     controller: _lambdaInputManager.textController,
                     decoration: InputDecoration(
                       hintText: _lambdaInputManager.currentSearchedInput != null
-                          ? '# Click "${MyText.simulate.text}" to restore the previous input'
+                          ? '# Click "${MyText.evaluate.text}" to restore the previous input'
                           : null,
                     ),
                     minLines: 7,
@@ -87,7 +87,7 @@ class _SimulationTabState extends State<SimulationTab>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(MyText.simulate.text),
+                          Text(MyText.evaluate.text),
                           const Padding(
                             padding: EdgeInsets.only(left: 12.0),
                             child: Icon(Icons.computer_outlined),

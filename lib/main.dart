@@ -3,7 +3,7 @@ import 'package:lambda_calculus_front_end/constants/my_text.dart';
 import 'package:lambda_calculus_front_end/constants/my_themes.dart';
 import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
 import 'package:lambda_calculus_front_end/views/introduction_tab.dart';
-import 'package:lambda_calculus_front_end/views/simulation_tab.dart';
+import 'package:lambda_calculus_front_end/views/evaluation_tab.dart';
 import 'package:lambda_calculus_front_end/views/type_tab.dart';
 
 void main() {
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     _markdownCallbackBinder.withCurrentGroup(MyText.title.text, () {
       // Bind the markdownCallbackBinder to the tabs.
-      _markdownCallbackBinder['simulation'] = () {
+      _markdownCallbackBinder['evaluation'] = () {
         _tabController.animateTo(1);
       };
       _markdownCallbackBinder['type-inference'] = () {
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
             Tab(
               icon: const Icon(Icons.computer_outlined),
-              text: MyText.simTab.text,
+              text: MyText.evalTab.text,
             ),
             Tab(
               icon: const Icon(Icons.code_outlined),
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             controller: _tabController,
             children: [
               IntroductionTab(markdownCallbackBinder: _markdownCallbackBinder),
-              SimulationTab(markdownCallbackBinder: _markdownCallbackBinder),
+              EvaluationTab(markdownCallbackBinder: _markdownCallbackBinder),
               TypeTab(markdownCallbackBinder: _markdownCallbackBinder),
             ],
           ),

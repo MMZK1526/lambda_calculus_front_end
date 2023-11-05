@@ -1,7 +1,7 @@
 enum MyText {
   title,
   introTab,
-  simTab,
+  evalTab,
   typeTab,
 
   typeInfer,
@@ -10,7 +10,7 @@ enum MyText {
   reset,
   confirm,
   help,
-  simulate,
+  evaluate,
   addRegister,
   resetInputs,
   startFromR0,
@@ -37,8 +37,8 @@ extension MyTextExtension on MyText {
         return 'Introduction';
       case MyText.typeTab:
         return 'Type Inference';
-      case MyText.simTab:
-        return 'Simulation';
+      case MyText.evalTab:
+        return 'Evaluation';
 
       case MyText.typeInfer:
         return 'Infer Type';
@@ -52,8 +52,8 @@ extension MyTextExtension on MyText {
         return 'Confirm';
       case MyText.help:
         return 'Help';
-      case MyText.simulate:
-        return 'Simulate';
+      case MyText.evaluate:
+        return 'Evaluate';
       case MyText.addRegister:
         return 'Add Register';
       case MyText.resetInputs:
@@ -80,7 +80,7 @@ extension MyTextExtension on MyText {
       case MyText.decodeZip:
         return 'decode.zip';
       case MyText.simlateZip:
-        return 'simulate.zip';
+        return 'evaluate.zip';
       default:
         return 'Unknown';
     }
