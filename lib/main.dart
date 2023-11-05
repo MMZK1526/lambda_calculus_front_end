@@ -3,6 +3,7 @@ import 'package:lambda_calculus_front_end/constants/my_text.dart';
 import 'package:lambda_calculus_front_end/constants/my_themes.dart';
 import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
 import 'package:lambda_calculus_front_end/views/introduction_tab.dart';
+import 'package:lambda_calculus_front_end/views/simulation_tab.dart';
 import 'package:lambda_calculus_front_end/views/type_tab.dart';
 
 void main() {
@@ -94,7 +95,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             controller: _tabController,
             children: [
               IntroductionTab(markdownCallbackBinder: _markdownCallbackBinder),
-              IntroductionTab(markdownCallbackBinder: _markdownCallbackBinder),
+              SimulationTab(markdownCallbackBinder: _markdownCallbackBinder),
               TypeTab(markdownCallbackBinder: _markdownCallbackBinder),
             ],
           ),

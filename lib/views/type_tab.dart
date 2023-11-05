@@ -25,9 +25,6 @@ class _TypeTabState extends State<TypeTab>
     with AutomaticKeepAliveClientMixin<TypeTab> {
   final _lambdaInputManager = InputManager<TypeData>();
 
-  /// The index of the currently selected Lambda example.
-  int? _currentExampleIndex;
-
   /// The set of all Lambda examples.
   final allExampleRMs =
       RMExamplesExtension.allExamples().map((e) => e.rm).toSet();
@@ -40,13 +37,6 @@ class _TypeTabState extends State<TypeTab>
     _lambdaInputManager.initState();
     _lambdaInputManager.addListener(() => setState(() {}));
 
-    _lambdaInputManager.textController.addListener(() {
-      final isExample =
-          allExampleRMs.contains(_lambdaInputManager.textController.text);
-      if (_currentExampleIndex != null && !isExample) {
-        setState(() => _currentExampleIndex = null);
-      }
-    });
     super.initState();
   }
 

@@ -2,18 +2,12 @@
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:lambda_calculus_front_end/components/button.dart';
 import 'package:lambda_calculus_front_end/components/my_markdown_body.dart';
-import 'package:lambda_calculus_front_end/constants/my_markdown_texts.dart';
 import 'package:lambda_calculus_front_end/constants/my_text.dart';
 import 'package:lambda_calculus_front_end/constants/my_themes.dart';
-import 'package:lambda_calculus_front_end/constants/rm_examples.dart';
 import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
 import 'package:lambda_calculus_front_end/controllers/input_manager.dart';
-import 'package:lambda_calculus_front_end/models/simulate_data.dart';
-import 'package:lambda_calculus_front_end/utilities/file_io.dart';
 
 class SimulationTab extends StatefulWidget {
   const SimulationTab({super.key, this.markdownCallbackBinder});
@@ -28,43 +22,22 @@ class SimulationTab extends StatefulWidget {
 
 class _SimulationTabState extends State<SimulationTab>
     with AutomaticKeepAliveClientMixin<SimulationTab> {
-  final _simulateInputManager = InputManager<SimulateData>();
-
-  /// The index of the currently selected RM example.
-  int? _currentExampleIndex;
-
-  /// The set of all RM examples.
-  final allExampleRMs =
-      RMExamplesExtension.allExamples().map((e) => e.rm).toSet();
+  final _lambdaInputManager = InputManager<String>();
 
   @override
   bool get wantKeepAlive => true;
 
   @override
   void initState() {
-    // widget.markdownCallbackBinder?.withCurrentGroup(MyText.simTab.text, () {
-    //   // Bind the download action for the the markdownCallbackBinder.
-    //   widget.markdownCallbackBinder?[MyText.download.text] = () {
-    //     onDownload(_simulateInputManager.data);
-    //   };
-    // });
-
-    // _simulateInputManager.initState();
-    // _simulateInputManager.addListener(() => setState(() {}));
-    // _simulateInputManager.textController.addListener(() {
-    //   final isExample =
-    //       allExampleRMs.contains(_simulateInputManager.textController.text);
-    //   if (_currentExampleIndex != null && !isExample) {
-    //     setState(() => _currentExampleIndex = null);
-    //   }
-    // });
+    _lambdaInputManager.initState();
+    _lambdaInputManager.addListener(() => setState(() {}));
 
     super.initState();
   }
 
   @override
   void dispose() {
-    _simulateInputManager.dispose();
+    _lambdaInputManager.dispose();
     super.dispose();
   }
 
@@ -72,13 +45,133 @@ class _SimulationTabState extends State<SimulationTab>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final simulateData = _simulateInputManager.data;
-    final simulateHasValidData = simulateData?.errors.isEmpty == true;
+    final simulateData = _lambdaInputManager.data;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: ListView(
-        children: [],
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    style: MyTheme.monospaceTheme.theme.textTheme.bodyLarge,
+                    controller: _lambdaInputManager.textController,
+                    decoration: InputDecoration(
+                      hintText: _lambdaInputManager.currentSearchedInput != null
+                          ? '# Click "${MyText.simulate.text}" to restore the previous input'
+                          : null,
+                    ),
+                    minLines: 7,
+                    maxLines: null,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Button(
+                    enabled: _lambdaInputManager.hasInput,
+                    colour: Theme.of(context).colorScheme.primary,
+                    onPressed: () => _lambdaInputManager.onQuery(
+                      (rm) => null,
+                    ),
+                    child: SizedBox(
+                      height: 64.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(MyText.simulate.text),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 12.0),
+                            child: Icon(Icons.computer_outlined),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 18.0),
+                Expanded(
+                  child: Button(
+                    enabled: true,
+                    colour: Theme.of(context).colorScheme.secondary,
+                    onPressed: () => null,
+                    child: SizedBox(
+                      height: 64.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(MyText.download.text),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 12.0),
+                            child: Icon(Icons.download_outlined),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Button(
+                    enabled: true,
+                    colour: Theme.of(context).colorScheme.tertiary,
+                    onPressed: () => _lambdaInputManager.onReset(),
+                    child: SizedBox(
+                      height: 64.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(MyText.reset.text),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 12.0),
+                            child: Icon(Icons.restore_outlined),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 18.0),
+                Expanded(
+                  child: Button(
+                    colour: Theme.of(context).colorScheme.secondary,
+                    onPressed: () => html.window.open(
+                      'https://pub.dev/documentation/lambda_calculus/latest/lambda_calculus/ToLambdaExtension/toLambda.html',
+                      'new tab',
+                    ),
+                    child: SizedBox(
+                      height: 64.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(MyText.help.text),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 12.0),
+                            child: Icon(Icons.help_outline_outlined),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
