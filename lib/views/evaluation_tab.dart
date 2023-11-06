@@ -80,7 +80,9 @@ class _EvaluationTabState extends State<EvaluationTab>
                     enabled: _lambdaInputManager.hasInput,
                     colour: Theme.of(context).colorScheme.primary,
                     onPressed: () => _lambdaInputManager.onQuery(
-                      (rm) => null,
+                      (lambdaRaw) {
+                        return lambdaRaw;
+                      },
                     ),
                     child: SizedBox(
                       height: 64.0,
