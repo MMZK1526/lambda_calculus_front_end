@@ -1,3 +1,5 @@
+import 'package:lambda_calculus/lambda_calculus.dart';
+
 class LambdaData {
   const LambdaData({
     required this.errors,
@@ -9,6 +11,28 @@ class LambdaData {
 
   static const parseError =
       LambdaData(errors: ['The lambda term could not be parsed']);
+
+  LambdaData.buildData({
+    required Lambda baseLambda,
+    int? maxSteps,
+    LambdaEvaluationType evaluationType = LambdaEvaluationType.fullReduction,
+  })  : errors = <String>[],
+        lambdas = <String>[] {
+    var curStep = 0;
+    Lambda? curLambda = baseLambda;
+    lambdas!.add(baseLambda.toString());
+
+    if (maxSteps == null || curStep < maxSteps) {
+      curLambda = curLambda.eval1(evalType: evaluationType);
+
+      if (curLambda == null) {
+        return;
+      }
+
+      lambdas!.add(baseLambda.toString());
+      curStep += 1;
+    }
+  }
 
   String toMarkdown() {
     if (errors.isNotEmpty) {
