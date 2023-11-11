@@ -2,12 +2,14 @@
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lambda_calculus_front_end/components/button.dart';
 import 'package:lambda_calculus_front_end/components/my_markdown_body.dart';
 import 'package:lambda_calculus_front_end/constants/my_text.dart';
 import 'package:lambda_calculus_front_end/constants/my_themes.dart';
 import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
 import 'package:lambda_calculus_front_end/controllers/input_manager.dart';
+import 'package:lambda_calculus_front_end/controllers/evaluation_manager.dart';
 
 class EvaluationTab extends StatefulWidget {
   const EvaluationTab({super.key, this.markdownCallbackBinder});
@@ -22,6 +24,7 @@ class EvaluationTab extends StatefulWidget {
 
 class _EvaluationTabState extends State<EvaluationTab>
     with AutomaticKeepAliveClientMixin<EvaluationTab> {
+  final _simulationManager = EvaluationManager();
   final _lambdaInputManager = InputManager<String>();
 
   @override
@@ -69,6 +72,46 @@ class _EvaluationTabState extends State<EvaluationTab>
                   ),
                 ),
               ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: SizedBox(
+              height: 36.0,
+              child: Row(
+                children: [
+                  const Expanded(child: SizedBox()),
+                  const SizedBox(width: 12.0),
+                  Checkbox(
+                    value: _simulationManager.useMaxSteps,
+                    onChanged: (value) =>
+                        _simulationManager.onuseMaxStepToggle(),
+                  ),
+                  Text(MyText.showFirst.text),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: SizedBox(
+                      width: 60.0,
+                      child: TextFormField(
+                        enabled: _simulationManager.useMaxSteps,
+                        controller: _simulationManager.stepsController,
+                        textAlignVertical: TextAlignVertical.center,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(12.0),
+                          isDense: true,
+                          hintText: '${_simulationManager.defaultSteps}',
+                        ),
+                        maxLines: 1,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                      ),
+                    ),
+                  ),
+                  Text(MyText.steps.text),
+                ],
+              ),
             ),
           ),
           Padding(

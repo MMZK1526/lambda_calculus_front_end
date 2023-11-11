@@ -27,7 +27,7 @@ class InputManager<T> extends ChangeNotifier {
   T? get data => _data;
 
   /// Initialise the internal [textController] and add a listener that triggers
-  /// when the emptyness of the input text changes.
+  /// when the emptiness of the input text changes.
   void initState() {
     textController.addListener(() {
       final hasInput =
