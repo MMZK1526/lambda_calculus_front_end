@@ -20,7 +20,6 @@ class LambdaData {
         lambdas = <String>[] {
     var curStep = 0;
     Lambda? curLambda = baseLambda;
-    lambdas!.add(baseLambda.toString());
 
     while (curLambda != null && (maxSteps == null || curStep < maxSteps)) {
       lambdas!.add(curLambda.toString());
