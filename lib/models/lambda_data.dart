@@ -22,14 +22,9 @@ class LambdaData {
     Lambda? curLambda = baseLambda;
     lambdas!.add(baseLambda.toString());
 
-    if (maxSteps == null || curStep < maxSteps) {
+    while (curLambda != null && (maxSteps == null || curStep < maxSteps)) {
+      lambdas!.add(curLambda.toString());
       curLambda = curLambda.eval1(evalType: evaluationType);
-
-      if (curLambda == null) {
-        return;
-      }
-
-      lambdas!.add(baseLambda.toString());
       curStep += 1;
     }
   }
