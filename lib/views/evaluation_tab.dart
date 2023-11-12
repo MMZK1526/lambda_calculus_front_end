@@ -32,7 +32,9 @@ class _EvaluationTabState extends State<EvaluationTab>
 
   @override
   void initState() {
+    _simulationManager.initState();
     _lambdaInputManager.initState();
+    _simulationManager.addListener(() => setState(() {}));
     _lambdaInputManager.addListener(() => setState(() {}));
 
     super.initState();
@@ -41,6 +43,7 @@ class _EvaluationTabState extends State<EvaluationTab>
   @override
   void dispose() {
     _lambdaInputManager.dispose();
+    _simulationManager.dispose();
     super.dispose();
   }
 
