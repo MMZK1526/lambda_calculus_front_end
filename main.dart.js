@@ -81900,16 +81900,13 @@ if(r!=null)r.H(0,s.gdY())
 s.aJ$=null
 s.aL()}}
 A.o9.prototype={
-ZZ(a,b,c){var s,r,q,p=this.b
-p.toString
-p.push(a.k(0))
-s=a
-r=0
-while(!0){if(s!=null)q=!0
-else q=!1
-if(!q)break
-p.push(J.e2(s))
-s=A.aC6(s,b);++r}},
+ZZ(a,b,c){var s,r=this.b,q=a,p=0
+while(!0){if(q!=null)s=!0
+else s=!1
+if(!s)break
+r.toString
+r.push(J.e2(q))
+q=A.aC6(q,b);++p}},
 zo(){var s,r,q,p=this.a
 if(p.length!==0)return"Error during evaluation:\n\n"+B.b.bq(p,"\n\n")
 p=""+"Step|Term\n-|-\n"
