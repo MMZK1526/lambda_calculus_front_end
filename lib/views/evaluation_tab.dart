@@ -3,6 +3,7 @@ import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lambda_calculus/lambda_calculus.dart';
 import 'package:lambda_calculus_front_end/components/button.dart';
 import 'package:lambda_calculus_front_end/components/my_markdown_body.dart';
 import 'package:lambda_calculus_front_end/constants/my_text.dart';
@@ -10,6 +11,7 @@ import 'package:lambda_calculus_front_end/constants/my_themes.dart';
 import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
 import 'package:lambda_calculus_front_end/controllers/input_manager.dart';
 import 'package:lambda_calculus_front_end/controllers/evaluation_manager.dart';
+import 'package:lambda_calculus_front_end/models/lambda_data.dart';
 
 class EvaluationTab extends StatefulWidget {
   const EvaluationTab({super.key, this.markdownCallbackBinder});
@@ -25,7 +27,7 @@ class EvaluationTab extends StatefulWidget {
 class _EvaluationTabState extends State<EvaluationTab>
     with AutomaticKeepAliveClientMixin<EvaluationTab> {
   final _simulationManager = EvaluationManager();
-  final _lambdaInputManager = InputManager<String>();
+  final _lambdaInputManager = InputManager<LambdaData>();
 
   @override
   bool get wantKeepAlive => true;
@@ -127,7 +129,13 @@ class _EvaluationTabState extends State<EvaluationTab>
                     colour: Theme.of(context).colorScheme.primary,
                     onPressed: () => _lambdaInputManager.onQuery(
                       (lambdaRaw) {
-                        return lambdaRaw;
+                        final lambda = lambdaRaw.toLambda();
+
+                        if (lambda == null) {
+                          return LambdaData.parseError;
+                        }
+                        final result = LambdaData.buildData(baseLambda: lambda);
+                        return result;
                       },
                     ),
                     child: SizedBox(
@@ -219,6 +227,16 @@ class _EvaluationTabState extends State<EvaluationTab>
               ],
             ),
           ),
+          if (evaluateData != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 12.0),
+              child: MyMarkdownBody(
+                callbackBinder: widget.markdownCallbackBinder,
+                selectable: true,
+                data: evaluateData.toMarkdown(),
+                fitContent: false,
+              ),
+            ),
         ],
       ),
     );
