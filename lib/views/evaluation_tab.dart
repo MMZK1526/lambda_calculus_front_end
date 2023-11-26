@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:lambda_calculus/lambda_calculus.dart';
 import 'package:lambda_calculus_front_end/components/button.dart';
 import 'package:lambda_calculus_front_end/components/my_markdown_body.dart';
+import 'package:lambda_calculus_front_end/constants/my_markdown_texts.dart';
 import 'package:lambda_calculus_front_end/constants/my_text.dart';
 import 'package:lambda_calculus_front_end/constants/my_themes.dart';
 import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
@@ -32,12 +33,24 @@ class _EvaluationTabState extends State<EvaluationTab>
   @override
   bool get wantKeepAlive => true;
 
+  void help() {
+    html.window.open(
+      'https://pub.dev/documentation/lambda_calculus/latest/lambda_calculus/ToLambdaExtension/toLambda.html',
+      'new tab',
+    );
+  }
+
   @override
   void initState() {
     _simulationManager.initState();
     _lambdaInputManager.initState();
     _simulationManager.addListener(() => setState(() {}));
     _lambdaInputManager.addListener(() => setState(() {}));
+
+    widget.markdownCallbackBinder?.withCurrentGroup(MyText.evalTab.text, () {
+      // Bind the markdownCallbackBinder to the tabs.
+      widget.markdownCallbackBinder?['help'] = help;
+    });
 
     super.initState();
   }
@@ -46,6 +59,8 @@ class _EvaluationTabState extends State<EvaluationTab>
   void dispose() {
     _lambdaInputManager.dispose();
     _simulationManager.dispose();
+    widget.markdownCallbackBinder?.dispose(MyText.evalTab.text);
+
     super.dispose();
   }
 
@@ -59,6 +74,11 @@ class _EvaluationTabState extends State<EvaluationTab>
       padding: const EdgeInsets.all(16.0),
       child: ListView(
         children: [
+          MyMarkdownBody(
+            callbackBinder: widget.markdownCallbackBinder,
+            data: MyMarkdownTexts.evaluationMarkdown,
+            fitContent: false,
+          ),
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: Row(
@@ -205,10 +225,7 @@ class _EvaluationTabState extends State<EvaluationTab>
                 Expanded(
                   child: Button(
                     colour: Theme.of(context).colorScheme.secondary,
-                    onPressed: () => html.window.open(
-                      'https://pub.dev/documentation/lambda_calculus/latest/lambda_calculus/ToLambdaExtension/toLambda.html',
-                      'new tab',
-                    ),
+                    onPressed: help,
                     child: SizedBox(
                       height: 64.0,
                       child: Row(

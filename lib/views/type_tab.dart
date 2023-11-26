@@ -56,12 +56,12 @@ class _TypeTabState extends State<TypeTab>
       padding: const EdgeInsets.all(16.0),
       child: ListView(
         children: [
-          // MARK: Lambda input
           MyMarkdownBody(
             callbackBinder: widget.markdownCallbackBinder,
             data: MyMarkdownTexts.typeInferenceMarkdown,
             fitContent: false,
           ),
+          // MARK: Lambda input
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: Row(

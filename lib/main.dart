@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     _tabController.dispose();
-    _markdownCallbackBinder.dispose();
+    _markdownCallbackBinder.dispose(MyText.title.text);
     super.dispose();
   }
 
