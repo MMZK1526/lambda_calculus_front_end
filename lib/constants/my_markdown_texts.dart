@@ -16,6 +16,7 @@ TODO: The [${MyText.evalTab.text}](!!evaluation) tab supports evaluating a lambd
 2. Call by name. Call by name, does not reduce within abstraction. Usually corresponds to "lazy evaluation".
 3. Call by value. Call by value, does not reduce within abstraction. Usually corresponds to "eager evaluation".
 
+// ignore: unnecessary_string_escapes
 The [${MyText.typeTab.text}](!!type-inference) tab supports type inference for a lambda term. It supports the vanilla Church type system without recursion.
 
 ## Syntax
@@ -67,12 +68,5 @@ Enter a Lambda term in the input box below to start evaluating it. You can also 
 
 Click the [${MyText.help.text}](!!help) button for syntax guides.
 
-""";
-
-  static final helpMarkdown = """
-
-""";
-
-  static const convertMarkdown = """
 """;
 }
