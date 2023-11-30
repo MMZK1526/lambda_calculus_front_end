@@ -121,14 +121,14 @@ class _EvaluationTabState extends State<EvaluationTab>
                         enabled: _evaluationManager.useMaxSteps,
                         onChanged: (value) => _evaluationManager.maxSteps =
                             int.tryParse(value) ??
-                                _evaluationManager.defaultSteps,
+                                EvaluationManager.defaultSteps,
                         controller: _evaluationManager.stepsController,
                         textAlignVertical: TextAlignVertical.center,
                         style: Theme.of(context).textTheme.bodyMedium,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(12.0),
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(12.0),
                           isDense: true,
-                          hintText: '${_evaluationManager.defaultSteps}',
+                          hintText: '${EvaluationManager.defaultSteps}',
                         ),
                         maxLines: 1,
                         inputFormatters: [
