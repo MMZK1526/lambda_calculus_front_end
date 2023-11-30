@@ -1,7 +1,8 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'package:lambda_calculus_front_end/constants/my_text.dart';
 
 class MyMarkdownTexts {
-  // ignore: unnecessary_string_escapes
   static final introMarkdown = """
 # Lambda Calculus Simulator
 
@@ -16,7 +17,6 @@ TODO: The [${MyText.evalTab.text}](!!evaluation) tab supports evaluating a lambd
 2. Call by name. Call by name, does not reduce within abstraction. Usually corresponds to "lazy evaluation".
 3. Call by value. Call by value, does not reduce within abstraction. Usually corresponds to "eager evaluation".
 
-// ignore: unnecessary_string_escapes
 The [${MyText.typeTab.text}](!!type-inference) tab supports type inference for a lambda term. It supports the vanilla Church type system without recursion.
 
 ## Syntax
@@ -67,6 +67,8 @@ Please type in a Lambda Calculus expression in the input box below and press the
 Enter a Lambda term in the input box below to start evaluating it. You can also choose the evaluation strategy and the number of steps to evaluate. Alternatively, you can select from the provided examples (TODO).
 
 Click the [${MyText.help.text}](!!help) button for syntax guides.
+
+The "Show first XXX steps" checkbox allows you to show only the first XXX steps of the evaluation. The checkbox is checked by default, and when unchecked, the evaluation will continue until the normal form is reached, which may cause the website to freeze if there is no normal form.
 
 """;
 }

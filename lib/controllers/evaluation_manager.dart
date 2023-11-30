@@ -2,10 +2,20 @@ import 'package:flutter/widgets.dart';
 
 class EvaluationManager extends ChangeNotifier {
   /// The default number of steps to show.
-  final defaultSteps = 20;
+  static const defaultSteps = 20;
 
-  /// If not null, show the first [useMaxSteps] steps of the evaluation.
-  bool _useMaxSteps = false;
+  /// The maximum number of steps to show.
+  int _maxSteps = 20;
+
+  int? getMaxSteps() => _useMaxSteps ? _maxSteps : null;
+
+  set maxSteps(int value) {
+    _maxSteps = value;
+    notifyListeners();
+  }
+
+  /// If true, show the first [maxSteps] steps of the evaluation.
+  bool _useMaxSteps = true;
 
   bool get useMaxSteps => _useMaxSteps;
 
@@ -22,7 +32,7 @@ class EvaluationManager extends ChangeNotifier {
   }
 
   /// Invoked when the show first N steps checkbox is clicked.
-  void onuseMaxStepToggle() {
+  void onUseMaxStepToggle() {
     _useMaxSteps = !_useMaxSteps;
     notifyListeners();
   }

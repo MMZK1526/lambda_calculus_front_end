@@ -27,7 +27,7 @@ class EvaluationTab extends StatefulWidget {
 
 class _EvaluationTabState extends State<EvaluationTab>
     with AutomaticKeepAliveClientMixin<EvaluationTab> {
-  final _simulationManager = EvaluationManager();
+  final _evaluationManager = EvaluationManager();
   final _lambdaInputManager = InputManager<LambdaData>();
 
   @override
@@ -42,9 +42,9 @@ class _EvaluationTabState extends State<EvaluationTab>
 
   @override
   void initState() {
-    _simulationManager.initState();
+    _evaluationManager.initState();
     _lambdaInputManager.initState();
-    _simulationManager.addListener(() => setState(() {}));
+    _evaluationManager.addListener(() => setState(() {}));
     _lambdaInputManager.addListener(() => setState(() {}));
 
     widget.markdownCallbackBinder?.withCurrentGroup(MyText.evalTab.text, () {
@@ -58,7 +58,7 @@ class _EvaluationTabState extends State<EvaluationTab>
   @override
   void dispose() {
     _lambdaInputManager.dispose();
-    _simulationManager.dispose();
+    _evaluationManager.dispose();
     widget.markdownCallbackBinder?.dispose(MyText.evalTab.text);
 
     super.dispose();
@@ -108,9 +108,9 @@ class _EvaluationTabState extends State<EvaluationTab>
                   const Expanded(child: SizedBox()),
                   const SizedBox(width: 12.0),
                   Checkbox(
-                    value: _simulationManager.useMaxSteps,
+                    value: _evaluationManager.useMaxSteps,
                     onChanged: (value) =>
-                        _simulationManager.onuseMaxStepToggle(),
+                        _evaluationManager.onUseMaxStepToggle(),
                   ),
                   Text(MyText.showFirst.text),
                   Padding(
@@ -118,14 +118,17 @@ class _EvaluationTabState extends State<EvaluationTab>
                     child: SizedBox(
                       width: 60.0,
                       child: TextFormField(
-                        enabled: _simulationManager.useMaxSteps,
-                        controller: _simulationManager.stepsController,
+                        enabled: _evaluationManager.useMaxSteps,
+                        onChanged: (value) => _evaluationManager.maxSteps =
+                            int.tryParse(value) ??
+                                _evaluationManager.defaultSteps,
+                        controller: _evaluationManager.stepsController,
                         textAlignVertical: TextAlignVertical.center,
                         style: Theme.of(context).textTheme.bodyMedium,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(12.0),
                           isDense: true,
-                          hintText: '${_simulationManager.defaultSteps}',
+                          hintText: '${_evaluationManager.defaultSteps}',
                         ),
                         maxLines: 1,
                         inputFormatters: [
@@ -154,7 +157,10 @@ class _EvaluationTabState extends State<EvaluationTab>
                         if (lambda == null) {
                           return LambdaData.parseError;
                         }
-                        final result = LambdaData.buildData(baseLambda: lambda);
+                        final result = LambdaData.buildData(
+                          baseLambda: lambda,
+                          maxSteps: _evaluationManager.getMaxSteps(),
+                        );
                         return result;
                       },
                     ),
