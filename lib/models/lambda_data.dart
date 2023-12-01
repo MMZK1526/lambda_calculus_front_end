@@ -21,7 +21,7 @@ class LambdaData {
     var curStep = 0;
     Lambda? curLambda = baseLambda;
 
-    while (curLambda != null && (maxSteps == null || curStep < maxSteps)) {
+    while (curLambda != null && (maxSteps == null || curStep <= maxSteps)) {
       lambdas!.add(curLambda.toString());
       curLambda = curLambda.eval1(evalType: evaluationType);
       curStep += 1;
