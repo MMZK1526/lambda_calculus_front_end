@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
@@ -6,57 +5,6 @@ import 'dart:typed_data';
 
 /// File upload/download utilities.
 class FileIO {
-  /// Upload a file from the user's computer, returning the content as a
-  /// [String].
-  ///
-  /// If [maxLength] is provided, any file larger than that will be rejected.
-  static Future<String> uploadToString({int? maxLength}) {
-    // Use a completer to return the result of the file upload, turning the
-    // callback-based API into a Future-based API.
-    final completer = Completer<String>();
-    final input = html.FileUploadInputElement();
-    input.click(); // Open the file upload dialog.
-
-    // Listen for the file to be selected.
-    input.onChange.listen((event) {
-      final files = input.files;
-      if (files == null || files.isEmpty) {
-        return;
-      }
-
-      final file = files[0];
-      final reader = html.FileReader();
-      reader.readAsArrayBuffer(file);
-      reader.onLoadEnd.listen((event) {
-        final result = reader.result;
-        if (result is Uint8List) {
-          try {
-            // Decode the file content as a string.
-            final content = utf8.decode(result, allowMalformed: false);
-
-            // Check if the file is too large.
-            if (maxLength != null && content.length > maxLength) {
-              completer.completeError(
-                'The content is too large (max length: $maxLength)!',
-              );
-            } else {
-              completer.complete(content);
-            }
-          } catch (e) {
-            // The file content is not a valid string.
-            completer.completeError(
-              'Failed to parse the file content as string!',
-            );
-          }
-        } else {
-          completer.completeError('Failed to read the file!');
-        }
-      });
-    });
-
-    return completer.future;
-  }
-
   /// Save a [Uint8List] as a file with the given name.
   static void saveFromBytes(String name, Uint8List bytes) {
     final url = html.Url.createObjectUrlFromBlob(

@@ -1,9 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lambda_calculus_front_end/components/button.dart';
-import 'package:lambda_calculus_front_end/constants/my_text.dart';
-import 'package:lambda_calculus_front_end/utilities/file_io.dart';
 
 /// Manage the input field and the data returned from the callback.
 class InputManager<T> extends ChangeNotifier {
@@ -43,36 +40,6 @@ class InputManager<T> extends ChangeNotifier {
   void dispose() {
     textController.dispose();
     super.dispose();
-  }
-
-  /// Upload the content of the file to the input field.
-  ///
-  /// It shows an error dialog if the file is too large.
-  Future<void> onUpload(
-    BuildContext? context, {
-    int maxLength = 1919810,
-  }) async {
-    try {
-      textController.text = await FileIO.uploadToString(maxLength: maxLength);
-    } catch (e) {
-      if (context != null && context.mounted) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(MyText.uploadErr.text),
-              content: Text('$e'),
-              actions: [
-                Button(
-                  child: Text(MyText.confirm.text),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ],
-            );
-          },
-        );
-      }
-    }
   }
 
   /// Query using the callback with the input text.

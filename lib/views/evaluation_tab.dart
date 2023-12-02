@@ -14,6 +14,7 @@ import 'package:lambda_calculus_front_end/controllers/callback_binder.dart';
 import 'package:lambda_calculus_front_end/controllers/input_manager.dart';
 import 'package:lambda_calculus_front_end/controllers/evaluation_manager.dart';
 import 'package:lambda_calculus_front_end/models/lambda_data.dart';
+import 'package:lambda_calculus_front_end/utilities/file_io.dart';
 
 class EvaluationTab extends StatefulWidget {
   const EvaluationTab({super.key, this.markdownCallbackBinder});
@@ -207,9 +208,12 @@ class _EvaluationTabState extends State<EvaluationTab>
                 const SizedBox(width: 18.0),
                 Expanded(
                   child: Button(
-                    enabled: true,
+                    enabled: evaluateData?.errors.isEmpty == true,
                     colour: Theme.of(context).colorScheme.secondary,
-                    onPressed: () => null,
+                    onPressed: () => FileIO.saveFromString(
+                      MyText.responseMarkdown.text,
+                      '${evaluateData?.toMarkdown()}',
+                    ),
                     child: SizedBox(
                       height: 64.0,
                       child: Row(

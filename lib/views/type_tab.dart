@@ -110,7 +110,7 @@ class _TypeTabState extends State<TypeTab>
                   enabled: lambdaTypeResult?.errors.isEmpty == true,
                   colour: Theme.of(context).colorScheme.secondary,
                   onPressed: () => FileIO.saveFromString(
-                    'type.md',
+                    MyText.responseMarkdown.text,
                     '${lambdaTypeResult?.toMarkdown()}',
                   ),
                   child: Row(
