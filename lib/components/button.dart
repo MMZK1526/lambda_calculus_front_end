@@ -13,6 +13,7 @@ class Button extends StatelessWidget {
     required this.child,
     this.enabled = true,
     this.colour,
+    this.borderRadius = 12.0,
     super.key,
   });
 
@@ -23,6 +24,8 @@ class Button extends StatelessWidget {
   final bool enabled;
 
   final Color? colour;
+
+  final double borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +48,12 @@ class Button extends StatelessWidget {
           (states) {
             if (states.contains(MaterialState.disabled)) {
               return RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(borderRadius),
                 side: const BorderSide(color: Colors.grey),
               );
             }
             return RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
+              borderRadius: BorderRadius.circular(borderRadius),
               side: BorderSide(color: foregroundColour),
             );
           },

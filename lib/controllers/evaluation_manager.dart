@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:lambda_calculus/lambda_calculus.dart';
 
 class EvaluationManager extends ChangeNotifier {
   /// The default number of steps to show.
@@ -6,6 +7,9 @@ class EvaluationManager extends ChangeNotifier {
 
   /// The maximum number of steps to show.
   int _maxSteps = 20;
+
+  /// The evaluation type.
+  LambdaEvaluationType evaluationType = LambdaEvaluationType.fullReduction;
 
   int? getMaxSteps() => _useMaxSteps ? _maxSteps : null;
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lambda_calculus/lambda_calculus.dart';
 import 'package:lambda_calculus_front_end/components/button.dart';
+import 'package:lambda_calculus_front_end/components/button_group.dart';
 import 'package:lambda_calculus_front_end/components/my_markdown_body.dart';
 import 'package:lambda_calculus_front_end/constants/my_markdown_texts.dart';
 import 'package:lambda_calculus_front_end/constants/my_text.dart';
@@ -105,6 +106,29 @@ class _EvaluationTabState extends State<EvaluationTab>
               height: 36.0,
               child: Row(
                 children: [
+                  ButtonGroup(
+                    onPressed: (i) {
+                      switch (i) {
+                        case 0:
+                          _evaluationManager.evaluationType =
+                              LambdaEvaluationType.fullReduction;
+                          break;
+                        case 1:
+                          _evaluationManager.evaluationType =
+                              LambdaEvaluationType.callByName;
+                          break;
+                        case 2:
+                          _evaluationManager.evaluationType =
+                              LambdaEvaluationType.callByValue;
+                          break;
+                      }
+                    },
+                    children: [
+                      Text(MyText.fullReduction.text),
+                      Text(MyText.callByName.text),
+                      Text(MyText.callByValue.text),
+                    ],
+                  ),
                   const Expanded(child: SizedBox()),
                   const SizedBox(width: 12.0),
                   Checkbox(
@@ -160,6 +184,7 @@ class _EvaluationTabState extends State<EvaluationTab>
                         final result = LambdaData.buildData(
                           baseLambda: lambda,
                           maxSteps: _evaluationManager.getMaxSteps(),
+                          evaluationType: _evaluationManager.evaluationType,
                         );
                         return result;
                       },

@@ -11,11 +11,13 @@ enum MyText {
   confirm,
   help,
   evaluate,
-  addRegister,
   resetInputs,
-  startFromR0,
   showFirst,
   steps,
+
+  fullReduction,
+  callByName,
+  callByValue,
 
   connectionErr,
   uploadErr,
@@ -23,8 +25,6 @@ enum MyText {
 
   responseJSON,
   responseMarkdown,
-  encodeZip,
-  decodeZip,
   simlateZip,
 }
 
@@ -54,16 +54,19 @@ extension MyTextExtension on MyText {
         return 'Help';
       case MyText.evaluate:
         return 'Evaluate';
-      case MyText.addRegister:
-        return 'Add Register';
       case MyText.resetInputs:
-        return 'Reset Inputs';
-      case MyText.startFromR0:
         return 'Start from R0';
       case MyText.showFirst:
         return 'Show First';
       case MyText.steps:
         return 'Steps';
+
+      case MyText.fullReduction:
+        return 'Full Reduction';
+      case MyText.callByName:
+        return 'Call by Name';
+      case MyText.callByValue:
+        return 'Call by Value';
 
       case MyText.connectionErr:
         return 'Connection Error';
@@ -75,10 +78,6 @@ extension MyTextExtension on MyText {
         return 'response.json';
       case MyText.responseMarkdown:
         return 'response.md';
-      case MyText.encodeZip:
-        return 'encode.zip';
-      case MyText.decodeZip:
-        return 'decode.zip';
       case MyText.simlateZip:
         return 'evaluate.zip';
       default:
