@@ -64,7 +64,7 @@ Please type in a Lambda Calculus expression in the input box below and press the
   static final evaluationMarkdown = """
 # Lambda Evaluation
 
-Enter a Lambda term in the input box below to start evaluating it. You can also choose the evaluation strategy and the number of steps to evaluate. Alternatively, you can select from the provided examples (TODO).
+Enter a Lambda term in the input box below to start evaluating it. You can also choose the evaluation strategy and the number of steps to evaluate.
 
 Click the [${MyText.help.text}](!!help) button for syntax guides.
 
