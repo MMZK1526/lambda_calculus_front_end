@@ -238,7 +238,8 @@ class _EvaluationTabState extends State<EvaluationTab>
               children: [
                 Expanded(
                   child: Button(
-                    enabled: true,
+                    enabled: evaluateData?.errors.isEmpty == true ||
+                        _lambdaInputManager.hasInput,
                     colour: Theme.of(context).colorScheme.tertiary,
                     onPressed: () => _lambdaInputManager.onReset(),
                     child: SizedBox(
